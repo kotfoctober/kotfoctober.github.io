@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--HEAD-->
+<head>
+    <!--META-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Erica D. Perkins, LLC • Portfolio</title>
+    <!-- Heading font resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://ericadperkins.com/public/assets/images/E.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Portfolio of Erica D. Perkins — Computer Science student and iOS/PHP developer.">
+    <style>
+        /* Code sample fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap');
+        :root {
+            --light-bg: #ffffff;
+            --light-surface: #ffffff;
+            --light-surface-muted: #f9fafb; /* very light gray for cards */
+            --light-text: #0f172a;
+            --light-muted: #374151;
+            --light-border: #e5e7eb;
+        }
+        /* Ensure root background matches body to prevent white gutters */
+        html { background: #1a1a1a; }
+        /* Light theme base */
+        html.light { background: var(--light-bg); }
+        html.light body { background: var(--light-bg); color: var(--light-text); }
+        /* Map dark utility colors to light equivalents */
+        html.light [class*="bg-[#0f0f10]"],
+        html.light [class*="bg-[#111111]"],
+        html.light [class*="bg-[#121212]"],
+        html.light [class*="bg-[#1a1a1a]"] { background-color: var(--light-surface) !important; }
+        html.light [class*="border-[#222222]"],
+        html.light [class*="border-[#242424]"] { border-color: var(--light-border) !important; }
+        /* Cards: slightly muted surface in light */
+        html.light .card { background-color: var(--light-surface-muted) !important; }
+        /* Text overrides */
+        html.light .text-white,
+        html.light [class*="text-gray-200"],
+        html.light [class*="text-gray-300"],
+        html.light [class*="text-gray-400"] { color: var(--light-text) !important; }
+        html.light .text-gray-400, html.light .text-gray-300 { color: var(--light-muted) !important; }
+        /* Accent stays indigo in light */
+        html.light .bg-indigo-500 { background-color: #4f46e5 !important; color: #fff !important; }
+        html.light .hover\:bg-gray-800:hover { background-color: #f3f4f6 !important; color: var(--light-text) !important; }
+
+        /* Polished touches */
+        .hammer {transform: scaleX(-1); display: inline-block;}
+        /* Hero background gradients */
+        .hero-section { background: linear-gradient(180deg, #000000 0%, #0b0b0c 45%, #111111 75%, #1a1a1a 100%); }
+        html.light .hero-section { background: linear-gradient(180deg, #ffffff 0%, #f8fafc 60%, #ffffff 100%); }
+        .card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        /* Theme toggle */
+        #theme-toggle { transition: background-color .15s, color .15s, border-color .15s; }
+        html.light #theme-toggle { background: #ffffff; color: #111827; border-color: #d1d5db; }
+        html.light #theme-toggle:hover { background: #f3f4f6; }
+        /* Print */
+        @media print { .no-print { display:none !important; } }
+
+        /* Consistent portfolio thumbnail ratio */
+        .portfolio-thumb { width: 100%; aspect-ratio: 16/9; object-fit: contain; }
+        .price:hover { cursor: default; }
+        /* Responsive video embed (16:9) */
+        .video-embed { position: relative; width: 100%; padding-top: 56.25%; border-radius: 0.5rem; overflow: hidden; background: #000; }
+        .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+        /* Skills: pointer cursor on hover */
+        .badge:hover { cursor: pointer; }
+        /* Nudge skills row upward */
+        #skills-list { margin-top: -1rem; }
+
+        /* Modal code syntax highlighting */
+        .tok-key { color: #93c5fd; }
+        .tok-str { color: #fbbf24; }
+        .tok-com { color: #6b7280; font-style: italic; }
+        .tok-fn { color: #34d399; }
+        #skill-code pre, #skill-code code, pre code, code, pre { font-family: 'Google Sans Code', 'Courier Prime', 'Courier New', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace; font-size: 12px; line-height: 1.4; font-variant-ligatures: none; }
+        /* Keep skill code readable in light mode: dark pane + light text */
+        html.light #skill-code { background-color: #0b0b0c !important; border-color: #222222 !important; }
+        html.light #skill-code pre, html.light #skill-code .text-gray-200 { color: #e5e7eb !important; }
+        html.light #skill-code .text-gray-400 { color: #d1d5db !important; }
+        html.light #skill-code .text-gray-500 { color: #9ca3af !important; }
+        /* Flat select (dropdown) styling */
+        .select-flat {
+            appearance: none;
+            background-color: #111111;
+            border: 1px solid #222222;
+            color: #e5e7eb;
+            font-size: 14px;
+            line-height: 1.4;
+            padding: 0.55rem 2.5rem 0.55rem 0.75rem; /* right padding for arrow */
+            border-radius: 0.5rem;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' fill='none' stroke='%23a3a3a3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem 1rem;
+            transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease;
+        }
+        .select-flat:hover {
+            border-color: #3b3b3b;
+        }
+        .select-flat:focus {
+            outline: 0;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99,102,241,0.35);
+        }
+        .select-flat:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+        html.light .select-flat {
+            background-color: #ffffff;
+            border-color: var(--light-border);
+            color: var(--light-text);
+            box-shadow: none;
+        }
+        html.light .select-flat:hover { border-color: #d1d5db; }
+        html.light .select-flat:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 2px rgba(79,70,229,0.35);
+        }
+        /* High contrast option text for light/dark */
+        #bf-reason option { color: #111111; }
+        html.light #bf-reason option { color: #111111; }
+        /* Reusable form field utility */
+        .form-field {
+            appearance: none;
+            background-color: #111111;
+            border: 1px solid #222222;
+            color: #e5e7eb;
+            font-size: 14px;
+            line-height: 1.4;
+            padding: 0.6rem 0.75rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease, color .15s ease;
+        }
+        .form-field:hover { border-color: #2e2e2e; }
+        .form-field:focus { outline: 0; border-color: #6366f1; box-shadow: 0 0 0 2px rgba(99,102,241,0.45); }
+        .form-field[aria-invalid="true"], .form-field.error { border-color: #dc2626; box-shadow: 0 0 0 2px rgba(220,38,38,0.45); }
+        .form-field[disabled], .form-field:disabled { opacity: .55; cursor: not-allowed; }
+        textarea.form-field { min-height: 150px; resize: vertical; }
+        html.light .form-field { background:#ffffff; border-color: var(--light-border); color: var(--light-text); }
+        html.light .form-field:hover { border-color: #d1d5db; }
+        html.light .form-field:focus { border-color:#4f46e5; box-shadow:0 0 0 2px rgba(79,70,229,0.45); }
+        html.light .form-field[aria-invalid="true"], html.light .form-field.error { border-color:#dc2626; box-shadow:0 0 0 2px rgba(220,38,38,0.45); }
+        /* Error message */
+        .field-error { margin-top: .35rem; font-size: 12px; color: #f87171; display: none; }
+        .field-error.active { display:block; }
+        /* Accessible focus within dark container */
+        .form-group:focus-within label span { color:#ffffff; }
+        /* Success screen animation */
+        .fade-in { animation: fadeIn .6s ease forwards; }
+        @keyframes fadeIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform: translateY(0);} }
+        .cooldown-note { font-size:12px; color:#9ca3af; margin-top:.5rem; }
+        .disabled-overlay { position:relative; }
+        .disabled-overlay:after { content:""; position:absolute; inset:0; background:rgba(17,17,17,.55); backdrop-filter:blur(2px); border-radius:.75rem; pointer-events:none; }
+        html.light .disabled-overlay:after { background:rgba(255,255,255,.55); }
+        /* Apply new font to headings and section titles */
+        h1, h2, h3, h4, h5, h6,
+        #portfolio-title, #certs-title, #skills-title, #videos-title,
+        #contact h2 { font-family: 'Google Sans Code', 'Courier Prime', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+
+    </style>
+</head>
+<!--BODY-->
+<body class="min-h-screen bg-[#1a1a1a] text-gray-200">
+    <!-- Navbar or Header -->
+    <header class="no-print sticky top-0 z-40 border-b border-[#242424] bg-[#111111]/90 backdrop-blur supports-[backdrop-filter]:bg-[#111111]/60">
+        <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+            <a href="https://ericadperkins.com/" class="flex items-center gap-3">
+                <!--<img src="images/favicon2.ico" alt="Home" class="h-8 w-8 rounded-sm bg-[#111111]" />-->
+                <span class="hidden sm:inline text-sm text-gray-300">Erica D. Perkins, LLC</span>
+            </a>
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" type="button" class="inline-flex items-center justify-center h-9 w-9 rounded-full border border-gray-700 text-gray-200 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-pressed="false" aria-label="Toggle theme">
+                    <svg data-icon="sun" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3" />
+                        <path stroke-linecap="round" d="M12 2v2M12 20v2M4 12H2M22 12h-2M5.64 5.64L4.22 4.22M19.78 19.78l-1.42-1.42M5.64 18.36L4.22 19.78M19.78 4.22l-1.42 1.42" />
+                    </svg>
+                    <svg data-icon="moon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                    <span class="sr-only">Toggle theme</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+         <section class="hero-section pt-10 pb-12">
+            <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                <!--Short About-->
+                <div class="order-2 md:order-1 md:col-span-2 space-y-4 text-center md:text-left">
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Hello World!</h1>
+                        <p class="text-gray-300">My name is Erica. I am a Computer Science student at Franklin University in Columbus, Ohio. I build, automate, and deploy, with a current focus on EdTech. (<span class="hammer">🔨</span>,🤖 )→ ☁️. 
+                            <button id="about-modal-trigger" type="button" aria-haspopup="dialog" aria-controls="about-modal" aria-expanded="false" aria-label="Open extended about"
+                            class="inline-flex items-center justify-center mt-1 ml-2 h-6 w-6 text-indigo-300 underline focus:outline-none focus:ring-2 focus:ring-indigo-500"><small>more</small></button></p>
+                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                        <a data-social="linkedin" href="https://linkedin.com/in/ericadperkins" target="_blank" rel="noopener" class="inline-flex items-center px-3 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-full text-sm">LinkedIn</a>
+                        <a data-social="youtube" href="https://www.youtube.com/@thesiliconledgertv/streams" target="_blank" rel="noopener" class="inline-flex items-center px-3 py-1.5 rounded-full text-sm border border-indigo-600/40 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20">YouTube</a>
+                        <a data-social="instagram" href="https://instagram.com/thesiliconledger" target="_blank" rel="noopener"  class="inline-flex items-center px-3 py-1.5 rounded-full text-sm border border-indigo-600/40 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20">Instagram</a>
+                    </div>
+                </div>
+                <!--Profile Image-->
+                <div class="order-1 md:order-2 md:col-span-1 flex justify-center md:justify-end self-start">
+                    <!-- Enhanced portrait: larger, halo, thicker ring, hover scale -->
+                    <div id="portrait-trigger" class="relative w-44 h-44 sm:w-48 sm:h-48 md:w-56 md:h-56 transition-transform duration-300 hover:scale-105 cursor-pointer" role="button" tabindex="0" aria-label="View larger portrait">
+                        <div class="absolute inset-0 rounded-full bg-indigo-500/10 blur-lg scale-125 z-0"></div>
+                        <img src="https://ericadperkins.com/public/assets/images/baw-grass.jpg" alt="Erica D. Perkins" class="absolute inset-0 z-10 w-full h-full object-cover rounded-full ring-4 ring-indigo-500/40 ring-offset-2 ring-offset-[#0b0b0c] shadow-[0_20px_45px_rgba(0,0,0,0.55)] bg-[#0d0d0d]">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Extended About Modal -->
+        <div id="about-modal" class="no-print fixed inset-0 z-50 hidden flex items-center justify-center bg-black/75 backdrop-blur-sm p-4" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
+            <div class="relative max-w-2xl w-full rounded-lg bg-[#121212] border border-[#222222] shadow-2xl overflow-auto max-h-[80vh]">
+                <div class="flex items-center justify-between px-4 py-2 border-b border-[#222222] bg-[#0f0f10]">
+                    <h2 id="about-modal-title" class="text-sm font-semibold text-gray-200">About Me — Extended</h2>
+                    <button id="about-modal-close" type="button" class="inline-flex items-center justify-center h-8 w-8 rounded-md text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-label="Close extended about">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"/></svg>
+                    </button>
+                </div>
+                <div class="p-4 space-y-4 text-sm leading-relaxed text-gray-300">
+                    <p>I am pursuing a Bachelor's Degree in Computer Science at <a href="https://cs.franklin.edu" target="_blank" rel="noopener" class="text-indigo-400 hover:text-indigo-300 underline">Franklin University</a>. I have developed two iOS applications, both available on the Apple App Store. The first, PHPcs, is a mobile learning platform designed to help users develop their coding skills through interactive lessons and quizzes. The app features byte-sized lessons of varying levels, each including practical examples. PHPcs makes coding education engaging, accessible, and effective for learners of all levels.</p>
+                    <p>During my early college years, I was actively involved in community service, volunteering with organizations such as the <a href="https://hrc.org" target="_blank" rel="noopener" class="text-indigo-400 hover:text-indigo-300 underline">H.R.C.</a> and <a href="https://naacp.org" target="_blank" rel="noopener" class="text-indigo-400 hover:text-indigo-300 underline">N.A.A.C.P.</a> to support efforts focused on equality and justice. While my focus has since shifted more toward my baccalaureate studies and professional development, these experiences afforded me the opportunity to contribute to several high-profile political campaigns including Jon Ossoff, Raphael Warnock, Stacey Abrams, and Joe Biden. I also helped my community. It was fun.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skill Sample Modal -->
+        <div id="skill-modal" class="no-print fixed inset-0 z-50 hidden flex items-center justify-center bg-black/75 backdrop-blur-sm p-4" role="dialog" aria-modal="true" aria-labelledby="skill-modal-title">
+            <div class="relative max-w-3xl w-full">
+                <div class="rounded-lg bg-[#121212] border border-[#222222] shadow-2xl overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 border-b border-[#222222] bg-[#0f0f10]">
+                        <h2 id="skill-modal-title" class="text-sm font-medium text-gray-200">
+                            <span id="skill-modal-lang">Sample</span> • Algorithm Example
+                        </h2>
+                        <div class="flex items-center gap-2">
+                            <button id="skill-modal-copy" type="button" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-[#222222] text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#FFA41C]" aria-label="Copy code sample">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2a3 3 0 00-3 3v11a4 4 0 004 4h9a3 3 0 003-3V6a4 4 0 00-4-4H7zM15 2a4 4 0 014 4v11a2 2 0 01-2 2H8a2 2 0 01-2-2V5a1 1 0 011-1h8z"/></svg>
+                                <span class="text-xs">Copy</span>
+                            </button>
+                            <button id="skill-modal-close" type="button" class="inline-flex items-center justify-center h-8 w-8 rounded-md text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#FFA41C]" aria-label="Close">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div id="skill-code" class="max-h-[70vh] overflow-auto rounded-md border border-[#222222] bg-[#0b0b0c]"></div>
+                        <p id="skill-note" class="mt-3 text-xs text-gray-500">Samples are authored by Erica D. Perkins.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate Viewer Modal -->
+        <div id="cert-modal" class="no-print fixed inset-0 z-50 hidden flex items-center justify-center bg-black/75 backdrop-blur-sm p-4" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title">
+                <div class="relative max-w-5xl w-full">
+                    <div class="rounded-lg bg-[#121212] border border-[#222222] shadow-2xl overflow-hidden">
+                        <div class="flex items-center justify-between px-4 py-2 border-b border-[#222222] bg-[#0f0f10]">
+                            <h2 id="cert-modal-title" class="text-sm font-medium text-gray-200">
+                                <span id="cert-modal-title-text">Certificate</span>
+                            </h2>
+                            <div class="flex items-center gap-2">
+                                <a id="cert-modal-open" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-[#222222] text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#FFA41C]" aria-label="Open certificate in new tab">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.25 4.5A2.25 2.25 0 014.5 2.25h7.5A2.25 2.25 0 0114.25 4.5v3.75h3a2.25 2.25 0 012.25 2.25v7.5A2.25 2.25 0 0117.25 20.25h-12A2.25 2.25 0 013 18V6.75a2.25 2.25 0 01-.75-1.659V4.5z"/></svg>
+                                    <span class="text-xs">Open</span>
+                                </a>
+                                <a id="cert-modal-download" href="#" download class="inline-flex items-center gap-2 h-8 px-3 rounded-md border border-[#222222] text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#FFA41C]" aria-label="Download certificate PDF">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.25a.75.75 0 01.75.75v10.19l2.72-2.72a.75.75 0 011.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V3a.75.75 0 01.75-.75z"/><path d="M3.75 18A2.25 2.25 0 016 15.75h12A2.25 2.25 0 0119.5 18v3a.75.75 0 01-.75.75h-15a.75.75 0 01-.75-.75v-3z"/></svg>
+                                    <span class="text-xs">Download</span>
+                                </a>
+                                <button id="cert-modal-close" type="button" class="inline-flex items-center justify-center h-8 w-8 rounded-md text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#FFA41C]" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="rounded-md border border-[#222222] bg-[#0b0b0c]">
+                                <iframe id="cert-modal-frame" title="Certificate PDF" class="w-full h-[75vh]"></iframe>
+                            </div>
+                            <p class="mt-3 text-xs text-gray-500">If the preview doesn't load, use Open to view in a new tab.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    
+            <!-- Portrait Modal Overlay -->
+        <div id="portrait-modal" class="no-print fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" role="dialog" aria-modal="true" aria-labelledby="portrait-modal-title">
+            <div class="relative max-w-3xl w-full flex items-center justify-center">
+                <button id="portrait-modal-close" type="button" class="absolute -top-2 -right-2 sm:top-0 sm:right-0 inline-flex items-center justify-center h-9 w-9 rounded-full bg-black/60 text-white hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-indigo-500 z-20" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"/></svg>
+                </button>
+                <div class="relative">
+                    <h2 id="portrait-modal-title" class="sr-only">Portrait</h2>
+                    <img src="https://ericadperkins.com/public/assets/images/player-unknown.jpg" alt="Erica D. Perkins" class="relative z-10 max-h-[80vh] max-w-full rounded-xl shadow-2xl ring-1 ring-white/10">
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio -->
+        <section class="py-8" aria-labelledby="portfolio-title">
+            <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                <h2 id="portfolio-title" class="text-xl font-semibold text-white mb-4">Portfolio</h2>
+                <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Project: PHPcs -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col">
+                        <img src="https://ericadperkins.com/public/assets/images/portfolio/sm-1.png" alt="PHPcs app logo" class="portfolio-thumb w-full object-contain rounded-md bg-[#111111] border border-[#222222]">
+                        <h3 class="mt-4 text-base font-medium text-white">PHP Code Support</h3>
+                        <p class="mt-2 text-sm text-gray-400">Master PHP on the go with byte-sized, interactive lessons.</p>
+                        <div class="mt-auto pt-3 flex items-center justify-between text-sm">
+                            <a href="https://apps.apple.com/us/app/php-code-support/id6445886502" target="_blank" rel="noopener" class="text-indigo-300 hover:text-indigo-200">App Store</a>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md border border-gray-800 bg-transparent text-white text-xs font-thin price">
+                                <span class="inline-block w-1.5 h-1.5 rounded-full mr-2" style="background-color:#22c55e;"></span>
+                                $2.99
+                            </span>
+                        </div>
+                    </article>
+
+                    <!-- Project: LOS -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col">
+                        <img src="https://ericadperkins.com/public/assets/images/portfolio/sm-2.png" alt="Assorted iOS app logos" class="portfolio-thumb w-full object-contain rounded-md bg-[#111111] border border-[#222222]">
+                        <h3 class="mt-4 text-base font-medium text-white">
+                            Load on Start <i><strong style="color:dodgerBlue;">mac</strong></i>
+                        </h3>
+                        <p class="mt-2 text-sm text-gray-400">Quick reference guide for essential Git terminal commands.</p>
+                        <div class="mt-auto pt-3 flex items-center justify-between text-sm">
+                            <a href="https://ericadperkins.com/public/los/index.php" target="_blank" rel="noopener" class="text-indigo-300 hover:text-indigo-200">Download</a>
+                            <span class="inline-flex items-center px-3 py-1 rounded-md border border-gray-800 bg-transparent text-white text-xs font-thin price">
+                                <span class="inline-block w-1.5 h-1.5 rounded-full mr-2" style="background-color:#6b7280;"></span>
+                                <a href="https://ericadperkins.com/public/los/index.php" target="_blank" rel="noopener">$0.00</a>
+                            </span>
+                        </div>
+                    </article>
+                    <!-- Project: CNotes -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col">
+                        <img src="https://ericadperkins.com/public/assets/images/portfolio/cplang.png" alt="C Programming Language Declassified" class="portfolio-thumb w-full object-contain rounded-md bg-[#111111] border border-[#222222]">
+                        <h3 class="mt-4 text-base font-medium text-white">C Programming Notes</h3>
+                        <p class="mt-2 text-sm text-gray-400">Essential programming manual for CS students <strong>(Version 1.0)</strong>.</p>
+                        <div class="mt-auto pt-3 flex items-center justify-between text-sm">
+                            <a href="https://ericadperkins.com/cnotes/document.pdf" target="_blank" rel="noopener" class="text-indigo-300 hover:text-indigo-200">Download</a>
+                            <span class="inline-flex items-center px-3 py-1 rounded-md border border-gray-800 bg-transparent text-white text-xs font-thin price">
+                                <span class="inline-block w-1.5 h-1.5 rounded-full mr-2" style="background-color:#6b7280;"></span>
+                                $0.00
+                            </span>
+                        </div>
+                    </article>
+                </div>
+                <!-- Mobile controls: Portfolio -->
+                <div id="portfolio-controls" class="sm:hidden mt-3 flex items-center gap-2">
+                    <button type="button" data-action="more" aria-controls="portfolio-grid" class="px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Load more</button>
+                    <button type="button" data-action="all" aria-controls="portfolio-grid" class="px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Load all</button>
+                    <button type="button" data-action="less" aria-controls="portfolio-grid" class="ml-auto px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Show less</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section class="py-8" aria-labelledby="certs-title">
+            <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                <h2 id="certs-title" class="text-xl font-semibold text-white mb-4">Certifications</h2>
+                <!-- Filters -->
+                <div class="no-print mb-4">
+                    <div id="cert-filters" class="inline-flex flex-wrap gap-2" role="tablist" aria-label="Filter certifications by vendor">
+                        <button type="button" data-filter="all" class="filter-btn badge inline-flex items-center gap-1 rounded-full border border-indigo-600/40 bg-indigo-500/10 px-2.5 py-1 text-xs text-indigo-300" role="tab">All</button>
+                        <button type="button" data-filter="aws" class="filter-btn badge inline-flex items-center gap-1 rounded-full border border-indigo-600 bg-indigo-600 px-2.5 py-1 text-xs text-white" role="tab" aria-selected="true">AWS</button>
+                        <button type="button" data-filter="comptia" class="filter-btn badge inline-flex items-center gap-1 rounded-full border border-indigo-600/40 bg-indigo-500/10 px-2.5 py-1 text-xs text-indigo-300" role="tab">CompTIA</button>
+                    </div>
+                </div>
+
+                <!-- AWS -->
+                <div id="vendor-section-aws">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-base font-semibold text-white inline-flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#FF9900]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a7 7 0 00-7 7 5 5 0 000 10h10a5 5 0 000-10 7 7 0 00-3-7z"/></svg>
+                            <span class="text-[#FF9900]">AWS</span> Generative AI
+                        </h3>
+                        <span class="hidden sm:inline text-xs px-2 py-0.5 rounded bg-[#FF9900] text-black font-medium">AWS</span>
+                    </div>
+                    <div id="vendor-aws" data-vendor="aws" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch mb-2">
+                    <!-- AWS 1 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="aws-1-title">
+                        <h4 id="aws-1-title" class="text-[15px] font-medium text-white">Building GenAI Models with Amazon Bedrock</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#FF9900] hover:text-[#ffb84d]" data-cert-url="https://www.ericadperkins.com/certificate/AWS/GenerativeAI-on-AWS-Building-GenAI-Models-with-Amazon-Bedrock.pdf" data-cert-title="Building GenAI Models with Amazon Bedrock" aria-label="View certificate PDF: Building GenAI Models with Amazon Bedrock">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- AWS 2 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="aws-2-title">
+                        <h4 id="aws-2-title" class="text-[15px] font-medium text-white">Building GenAI Models with Amazon SageMaker</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#FF9900] hover:text-[#ffb84d]" data-cert-url="https://www.ericadperkins.com/certificate/AWS/GenerativeAI-on-AWS-Building-GenAI-Models-with-Amazon-SageMaker.pdf" data-cert-title="Building GenAI Models with Amazon SageMaker" aria-label="View certificate PDF: Building GenAI Models with Amazon SageMaker">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- AWS 3 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="aws-3-title">
+                        <h4 id="aws-3-title" class="text-[15px] font-medium text-white">Creating Intelligent Chatbots</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#FF9900] hover:text-[#ffb84d]" data-cert-url="https://www.ericadperkins.com/certificate/AWS/GenerativeAI-on-AWS-Creating-Intelligent-Chatbots.pdf" data-cert-title="Creating Intelligent Chatbots" aria-label="View certificate PDF: Creating Intelligent Chatbots">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- AWS 4 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="aws-4-title">
+                        <h4 id="aws-4-title" class="text-[15px] font-medium text-white">Deploying & Managing GenAI Services on AWS</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#FF9900] hover:text-[#ffb84d]" data-cert-url="https://www.ericadperkins.com/certificate/AWS/GenerativeAI-on-AWS-Deploying-Managing-GenAI-Services-on-AWS.pdf" data-cert-title="Deploying & Managing GenAI Services on AWS" aria-label="View certificate PDF: Deploying & Managing GenAI Services on AWS">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- AWS 5 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="aws-5-title">
+                        <h4 id="aws-5-title" class="text-[15px] font-medium text-white">Generating Code with Amazon CodeWhisperer</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#FF9900] hover:text-[#ffb84d]" data-cert-url="https://www.ericadperkins.com/certificate/AWS/GenerativeAI-on-AWS-Generating-Code-with-Amazon-CodeWhisperer.pdf" data-cert-title="Generating Code with Amazon CodeWhisperer" aria-label="View certificate PDF: Generating Code with Amazon CodeWhisperer">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- AWS 6 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="aws-6-title">
+                        <h4 id="aws-6-title" class="text-[15px] font-medium text-white">Generating Speech with Amazon Polly</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#FF9900] hover:text-[#ffb84d]" data-cert-url="https://www.ericadperkins.com/certificate/AWS/GenerativeAI-on-AWS-Generating-Speech-with-Amazon-Polly.pdf" data-cert-title="Generating Speech with Amazon Polly" aria-label="View certificate PDF: Generating Speech with Amazon Polly">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- AWS 7 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="aws-7-title">
+                        <h4 id="aws-7-title" class="text-[15px] font-medium text-white">Getting Started</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#FF9900] hover:text-[#ffb84d]" data-cert-url="https://www.ericadperkins.com/certificate/AWS/GenerativeAI-on-AWS-Getting-Started.pdf" data-cert-title="Generative AI on AWS Getting Started" aria-label="View certificate PDF: Generative AI on AWS Getting Started">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- AWS 8 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="aws-8-title">
+                        <h4 id="aws-8-title" class="text-[15px] font-medium text-white">GitHub, Jekyll, and AWS Website Deployment</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#FF9900] hover:text-[#ffb84d]" data-cert-url="https://www.ericadperkins.com/certificate/AWS/GenerativeAI-on-AWS-Deployment.pdf" data-cert-title="GitHub, Jekyll, and AWS Website Deployment" aria-label="View certificate PDF: GitHub, Jekyll, and AWS Website Deployment">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- Mobile controls: AWS certs -->
+                <div id="vendor-aws-controls" class="sm:hidden mt-3 flex items-center gap-2">
+                    <button type="button" data-action="more" aria-controls="vendor-aws" class="px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Load more</button>
+                    <button type="button" data-action="all" aria-controls="vendor-aws" class="px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Load all</button>
+                    <button type="button" data-action="less" aria-controls="vendor-aws" class="ml-auto px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Show less</button>
+                </div>
+                </div>
+
+                <!-- CompTIA -->
+                <div id="vendor-section-comptia" class="hidden">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-base font-semibold text-white inline-flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#E4002B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25c1.6 0 3.2.3 4.68.9l2.07.83a.75.75 0 0 1 .47.7v6.818a11.25 11.25 0 0 1-6.172 10.06l-.005.002-.598.299a.75.75 0 0 1-.66 0l-.598-.3-.005-.002A11.25 11.25 0 0 1 4.78 11.5V4.68a.75.75 0 0 1 .47-.7l2.07-.83A12 12 0 0 1 12 2.25z"/></svg>
+                            <span class="text-[#E4002B]">CompTIA</span>
+                            <span class="sr-only">Certification track:</span>
+                            Cloud Essentials+
+                        </h3>
+                        <span class="hidden sm:inline text-xs px-2 py-0.5 rounded bg-[#E4002B] text-white font-medium">CompTIA</span>
+                    </div>
+                    <div id="vendor-comptia" data-vendor="comptia" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch mb-2">
+                    <!-- CompTIA: Cloud Migration Strategies (new first card) -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="comptia-0-title">
+                        <h4 id="comptia-0-title" class="text-[15px] font-medium text-white">Cloud Migration Strategies</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#E4002B] hover:text-[#ff4d66]" data-cert-url="https://www.ericadperkins.com/certificate/CompTIA/CompTIACloudEssentialsCloudMigrationStrategies.pdf" data-cert-title="Cloud Migration Strategies" aria-label="View certificate PDF: Cloud Migration Strategies">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- CompTIA 1 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="comptia-1-title">
+                        <h4 id="comptia-1-title" class="text-[15px] font-medium text-white">Cloud Native Apps & Cloud Data Analytics</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#E4002B] hover:text-[#ff4d66]" data-cert-url="https://www.ericadperkins.com/certificate/CompTIA/CompTIACloudEssentialsCloudNativeAppsCloudDataAnalytics.pdf" data-cert-title="Cloud Native Apps & Cloud Data Analytics" aria-label="View certificate PDF: Cloud Native Apps & Cloud Data Analytics">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- CompTIA 2 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="comptia-2-title">
+                        <h4 id="comptia-2-title" class="text-[15px] font-medium text-white">DevOps in the Cloud</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#E4002B] hover:text-[#ff4d66]" data-cert-url="https://www.ericadperkins.com/certificate/CompTIA/CompTIACloudEssentialsDevOpsintheCloud.pdf" data-cert-title="DevOps in the Cloud" aria-label="View certificate PDF: DevOps in the Cloud">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- CompTIA 3 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="comptia-3-title">
+                        <h4 id="comptia-3-title" class="text-[15px] font-medium text-white">Operations within Cloud</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#E4002B] hover:text-[#ff4d66]" data-cert-url="https://www.ericadperkins.com/certificate/comCompTIAptia/CompTIACloudEssentialsOperationswithinCloud.pdf" data-cert-title="Operations within Cloud" aria-label="View certificate PDF: Operations within Cloud">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <!-- CompTIA 4 -->
+                    <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="comptia-4-title">
+                        <h4 id="comptia-4-title" class="text-[15px] font-medium text-white">Utilizing Cloud Services</h4>
+                        <div class="mt-auto pt-3">
+                            <p class="text-sm text-gray-400"><small>Codecademy</small></p>
+                            <div class="mt-2 flex items-center gap-4 text-sm">
+                                <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#E4002B] hover:text-[#ff4d66]" data-cert-url="https://www.ericadperkins.com/certificate/CompTIA/CompTIACloudEssentialsUtilizingCloudServices.pdf" data-cert-title="Utilizing Cloud Services" aria-label="View certificate PDF: Utilizing Cloud Services">
+                                    <span>View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <!-- Mobile controls: CompTIA certs -->
+                <div id="vendor-comptia-controls" class="sm:hidden mt-3 flex items-center gap-2">
+                    <button type="button" data-action="more" aria-controls="vendor-comptia" class="px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Load more</button>
+                    <button type="button" data-action="all" aria-controls="vendor-comptia" class="px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Load all</button>
+                    <button type="button" data-action="less" aria-controls="vendor-comptia" class="ml-auto px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Show less</button>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="py-8" aria-labelledby="skills-title">
+            <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                <h2 id="skills-title" class="text-xl font-semibold text-white mb-2">Skills</h2>
+                <p class="text-xs text-gray-500 mb-4">Click any skill badge to open an IDE-style modal showing a sample algorithm for that language. Run on: <a href="https://www.codewars.com/kata/52fba66badcd10859f00097e/train/php" target="_blank" rel="noopener" class="text-[#97AA0B] hover:text-[#ff4d66]">CodeWars IDE</a></p>
+                <div class="rounded-lg bg-transparent pl-0 pr-5 py-5">
+                    <div id="skills-list" class="flex flex-wrap gap-3">
+                        <button type="button" class="skill-badge badge inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs border-indigo-600/40 bg-indigo-500/10 text-indigo-300" data-lang="PHP">PHP</button>
+                        <button type="button" class="skill-badge badge inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs border-emerald-600/40 bg-emerald-500/10 text-emerald-300" data-lang="Python">Python</button>
+                        <button type="button" class="skill-badge badge inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs border-blue-600/40 bg-blue-500/10 text-blue-300" data-lang="C++">C++</button>
+                        <button type="button" class="skill-badge badge inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs border-red-600/40 bg-red-500/10 text-red-300" data-lang="Java">Java</button>
+                        <button type="button" class="skill-badge badge inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs border-orange-600/40 bg-orange-500/10 text-orange-300" data-lang="JavaScript">JavaScript</button>
+                        <button type="button" class="skill-badge badge inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs border-emerald-600/40 bg-emerald-500/10 text-emerald-300" data-lang="C#">C#</button>
+                        <button type="button" class="skill-badge badge inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs border-zinc-600/40 bg-zinc-500/10 text-zinc-300" data-lang="Crystal">Crystal</button>
+                        <button type="button" class="skill-badge badge inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs border-red-600/40 bg-red-500/10 text-red-300" data-lang="Ruby">Ruby</button>
+                        <button type="button" class="skill-badge badge inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs border-orange-600/40 bg-orange-500/10 text-orange-300" data-lang="Swift">Swift</button>
+                        <button type="button" class="skill-badge badge inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs border-cyan-600/40 bg-cyan-500/10 text-cyan-300" data-lang="F#">F#</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Videos -->
+        <section class="py-8" aria-labelledby="videos-title">
+            <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                <h2 id="videos-title" class="text-xl font-semibold text-white mb-4">12‑Hour Study (CS)</h2>
+                <div class="card rounded-lg bg-[#121212] p-4 border border-[#222222]">
+                    <div class="video-embed">
+                        <iframe 
+                            src="https://www.youtube.com/embed/Cf8LUalPiGA?si=w7pRYLeDf97WELoP;controls=0" 
+                            title="YouTube video player" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                    </iframe>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-3">12‑hour Computer Science study session.</p>
+                    <p class="text-xs text-amber-400 mt-2">Enjoy the full study session. If you'd like to show support, feel free to comment, like, or subscribe.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="py-10">
+            <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                <div class="rounded-lg bg-[#111111] p-6 border border-[#222222] flex flex-col sm:flex-row items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-semibold text-white">Let's connect</h2>
+                        <p class="text-sm text-gray-400 mt-1">Actively looking for internship opportunities to grow my skills and earn money for college.</p>
+                    </div>
+                    <div class="mt-4 sm:mt-0 flex gap-3 self-start sm:self-auto">
+                        <a href="mailto:me@ericadperkins.com" class="inline-flex items-center justify-center w-36 sm:w-auto px-4 py-2 rounded-full border border-indigo-600/40 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20">📧 Email</a>
+                        <a href="https://cs.franklin.edu" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-36 sm:w-auto px-4 py-2 border border-gray-700 hover:bg-gray-800 text-gray-200 rounded-full">🎓 Franklin</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer --> 
+    <footer class="mt-8 border-t border-[#222222] bg-[#111111]">
+        <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-6 text-sm text-gray-400 flex flex-col sm:flex-row items-center justify-between">
+            <div>© 2026 Erica D. Perkins, LLC. All rights reserved.</div>
+            <div class="mt-2 sm:mt-0 flex items-center gap-3">
+                <a href="https://ericadperkins.com/privacy" class="underline text-[#0E00C2] hover:text-[#0E00C2]/80">Privacy</a>
+                <a href="https://validator.w3.org/check?uri=referer" target="_blank" rel="noopener" title="Valid HTML">
+                    <img src="https://www.w3.org/Icons/valid-html40-blue" alt="Valid HTML 4.0" style="height:22px;">
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank" rel="noopener" title="Valid CSS">
+                    <img src="https://www.w3.org/Icons/valid-css2-blue" alt="Valid CSS" style="height:22px;">
+                </a>
+                <a href="https://validator.w3.org/check?uri=referer" target="_blank" rel="noopener" title="Valid SVG">
+                    <img src="https://www.w3.org/Icons/valid-svg12-blue" alt="Valid SVG" style="height:22px;">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle with localStorage (default to dark) + sun/moon icons
+        (function(){
+            const root = document.documentElement;
+            const KEY = 'theme';
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            const sun = btn.querySelector('[data-icon="sun"]');
+            const moon = btn.querySelector('[data-icon="moon"]');
+            function apply(t){
+                const isLight = t === 'light';
+                root.classList.toggle('light', isLight);
+                try { localStorage.setItem(KEY, t); } catch(_){}
+                if (sun && moon) {
+                    if (isLight) {
+                        sun.classList.remove('hidden');
+                        moon.classList.add('hidden');
+                        btn.setAttribute('aria-pressed','false');
+                    } else {
+                        sun.classList.add('hidden');
+                        moon.classList.remove('hidden');
+                        btn.setAttribute('aria-pressed','true');
+                    }
+                }
+            }
+            let theme; try { theme = localStorage.getItem(KEY) || 'dark'; } catch(_) { theme = 'dark'; }
+            apply(theme);
+            btn.addEventListener('click', function(){
+                theme = theme === 'light' ? 'dark' : 'light';
+                apply(theme);
+            });
+        })();
+
+        // Social buttons toggle (single active accent fill)
+        (function(){
+            const socials = Array.from(document.querySelectorAll('[data-social]'));
+            if (!socials.length) return;
+            const FILL = ['bg-indigo-500','hover:bg-indigo-600','text-white'];
+            const OUTLINE = ['border','border-indigo-600/40','bg-indigo-500/10','hover:bg-indigo-500/20','text-indigo-300'];
+            const LEGACY = ['bg-[#FFA41C]','hover:bg-[#FFA41C]/90'];
+            function activate(el){
+                socials.forEach(btn => {
+                    [...FILL, ...LEGACY].forEach(c => btn.classList.remove(c));
+                    OUTLINE.forEach(c => { if (!btn.classList.contains(c)) btn.classList.add(c); });
+                    btn.setAttribute('aria-pressed','false');
+                });
+                el.classList.remove(...OUTLINE);
+                FILL.forEach(c => { if (!el.classList.contains(c)) el.classList.add(c); });
+                el.setAttribute('aria-pressed','true');
+            }
+            const defaultBtn = document.querySelector('[data-social="linkedin"]');
+            if (defaultBtn) activate(defaultBtn);
+            socials.forEach(btn => {
+                btn.addEventListener('click', () => activate(btn));
+            });
+        })();
+
+        // Portrait modal: open on click, close on ESC/outside click
+        (function(){
+            const trigger = document.getElementById('portrait-trigger');
+            const modal = document.getElementById('portrait-modal');
+            const closeBtn = document.getElementById('portrait-modal-close');
+            if (!trigger || !modal || !closeBtn) return;
+
+            const hiddenClass = 'hidden';
+            let lastFocused = null;
+
+            function open(){
+                lastFocused = document.activeElement;
+                modal.classList.remove(hiddenClass);
+                setTimeout(()=> closeBtn.focus(), 0);
+                document.addEventListener('keydown', onKey);
+            }
+            function close(){
+                modal.classList.add(hiddenClass);
+                document.removeEventListener('keydown', onKey);
+                if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+            }
+            function onKey(e){
+                if (e.key === 'Escape') close();
+            }
+            function onBackdrop(e){
+                if (e.target === modal) close();
+            }
+
+            trigger.addEventListener('click', open);
+            trigger.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+            });
+            closeBtn.addEventListener('click', close);
+            modal.addEventListener('click', onBackdrop);
+        })();
+
+        // About modal
+        (function(){
+            const trigger = document.getElementById('about-modal-trigger');
+            const modal = document.getElementById('about-modal');
+            const closeBtn = document.getElementById('about-modal-close');
+            if (!trigger || !modal || !closeBtn) return;
+
+            const hiddenClass = 'hidden';
+            let lastFocused = null;
+
+            function open(){
+                lastFocused = document.activeElement;
+                modal.classList.remove(hiddenClass);
+                setTimeout(()=> closeBtn.focus(), 0);
+                document.addEventListener('keydown', onKey);
+            }
+            function close(){
+                modal.classList.add(hiddenClass);
+                document.removeEventListener('keydown', onKey);
+                if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+            }
+            function onKey(e){
+                if (e.key === 'Escape') close();
+            }
+            function onBackdrop(e){
+                if (e.target === modal) close();
+            }
+
+            trigger.addEventListener('click', open);
+            closeBtn.addEventListener('click', close);
+            modal.addEventListener('click', onBackdrop);
+        })();
+
+        // Skills modal: click badge to open with code sample
+        (function(){
+            const modal = document.getElementById('skill-modal');
+            const closeBtn = document.getElementById('skill-modal-close');
+            const skillLang = document.getElementById('skill-modal-lang');
+            const skillCode = document.getElementById('skill-code');
+            const skillCopyBtn = document.getElementById('skill-modal-copy');
+            const skillBadges = Array.from(document.querySelectorAll('.skill-badge'));
+
+            if (!modal || !skillBadges.length) return;
+
+            // Code samples authored by Erica D. Perkins
+            const codeSamples = {
+                'php': `function disemvowel(string $s): string  {
+    $v = "aeiouAEIOU";
+    $r = "";
+    for($i = 0; $i < strlen($s); $i++){
+        if(strpos($v,$s[$i]) === false){
+            $r .= $s[$i];
+        }
+    }
+    return $r;
+}`,
+                'python': `def disemvowel(string_):
+    r = ""
+    v = "aeiouAEIOU"
+    for i in range(len(string_)):
+        if string_[i] not in v:
+            r += string_[i]
+    return r`,
+                'c++': `#include <string>
+std::string disemvowel(const std::string& str) {
+    std::string v = "aeiouAEIOU";
+    std::string r = "";
+    for(int i = 0; i < str.length(); i++) {
+        if (v.find(str[i]) == std::string::npos) {
+            r += str[i];
+        }
+    }
+    return r;
+}`,
+                'java': `public class Troll {
+    public static String disemvowel(String str) {
+        String v = "aeiouAEIOU";
+        String r = "";
+        for(int i = 0; i < str.length(); i++) {
+            if(v.indexOf(str.charAt(i)) == -1) {
+            r += String.valueOf(str.charAt(i));
+            }
+        }
+        return r;
+    }
+}`,
+                'javascript': `function disemvowel(str) {
+    var v = "aeiouAEIOU";
+    var r = "";
+    for(var i = 0; i < str.length; i++){
+        if(v.indexOf(str[i]) == -1){
+            r += str[i];
+        }
+    }
+    return r;
+}`,
+                'c#': `using System;
+
+public static class Kata
+{
+    public static string Disemvowel(string str)
+    {
+        string v = "aeiouAEIOU";
+        string r = "";
+        for(int i = 0; i < str.Length; i++) {
+            if(v.IndexOf(str[i]) == -1){
+                r += str[i];
+            }
+        }
+        return r;
+    }
+}`,
+                'crystal': `def disemvowel(str)
+    v = "aeiouAEIOU"
+    r = ""
+    i = 0
+    loop do
+        break if i == str.size
+        r += str[i] if v.index(str[i]) == nil
+        i += 1
+    end
+    return r
+end`,
+                'ruby': `def disemvowel(str)
+    v = "aeiouAEIOU"
+    r = ""
+    i = 0
+    loop do
+        break if i == str.size
+        r += str[i] if v.index(str[i]) == nil
+        i += 1
+    end
+    return r
+end`,
+                'swift': `func disemvowel(_ s: String) -> String {
+    var v = "aeiouAEIUO"
+    var s = Array(s);
+    var r = ""
+    var i = 0
+    while i < s.count {
+        if(!v.contains(s[i])) {
+            r += String(s[i])
+        }
+        i += 1
+    }
+    return r
+}`,
+                'f#': `module Disemvowel.Solution
+
+let disemvowel (s: string) =
+    let v = "aeiouAEIOU"
+    let mutable r = ""
+    for i in 0 .. s.Length - 1 do
+        if v.Contains(s.[i]) then ()
+        else
+            r <- r + string s.[i]
+    r`
+            };
+
+            function highlightCode(lang, code){
+                const escaped = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                const kwMap = {
+                    'swift':['func','var','return','while','if','else','break'],
+                    'c++':['std','string','return','for','int','continue','else'],
+                    'python':['def','for','in','if','else','return','continue'],
+                    'java':['public','class','static','String','for','int','return','if','else','continue'],
+                    'javascript':['function','var','return','for','if','else','continue','let','const'],
+                    'c#':['public','static','string','return','for','int','if','else','continue'],
+                    'crystal':['def','return','if','else','end','loop','break'],
+                    'ruby':['def','return','if','else','end','loop','break'],
+                    'php':['function','return','for','if','else'],
+                    'f#':['module','let','in','for','do','if','else']
+                };
+                const kws = kwMap[lang] || [];
+                const kwRegex = kws.length ? new RegExp('\\b(' + kws.join('|') + ')\\b','g') : null;
+                const hashCommentLangs = new Set(['python','ruby','crystal','f#']);
+                const commentRegex = hashCommentLangs.has(lang) ? /#.*|\/\*[\s\S]*?\*\//g : /\/\/.*|\/\*[\s\S]*?\*\//g;
+                let out = escaped
+                    .replace(commentRegex, m=>`<span class="tok-com">${m}</span>`)
+                    .replace(/'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"/g, m=>`<span class="tok-str">${m}</span>`);
+                const parts = out.split(/(<[^>]+>)/g);
+                for (let i = 0; i < parts.length; i++) {
+                    const seg = parts[i];
+                    if (!seg || seg.startsWith('<')) continue;
+                    let replaced = seg;
+                    if (kwRegex) replaced = replaced.replace(kwRegex, m=>`<span class="tok-key">${m}</span>`);
+                    replaced = replaced.replace(/\b([A-Za-z_][A-Za-z0-9_]*)\s*(?=\()/g, m=>`<span class="tok-fn">${m.trim()}</span>`);
+                    parts[i] = replaced;
+                }
+                return parts.join('');
+            }
+
+            function norm(name){
+                const n = (name || '').trim().toLowerCase();
+                if (n === 'js' || n === 'javascript' || n === 'node' || n === 'nodejs') return 'javascript';
+                if (n === 'ts' || n === 'typescript') return 'typescript';
+                if (n === 'cpp' || n === 'c++') return 'c++';
+                if (n === 'csharp' || n === 'c#') return 'c#';
+                if (n === 'fsharp' || n === 'f#') return 'f#';
+                return n;
+            }
+
+            function openModal(lang){
+                const key = norm(lang);
+                const code = codeSamples[key] || '';
+                skillLang.textContent = lang;
+                const highlighted = highlightCode(key, code);
+                const lines = highlighted.split('\n');
+                const rows = lines.map((ln, i) => (
+                    `<div class="flex"><span class="select-none w-12 pr-3 text-right text-gray-500">${i+1}</span><pre class="whitespace-pre-wrap flex-1 text-gray-200">${ln || ' '}</pre></div>`
+                )).join('');
+                skillCode.innerHTML = rows || '<div class="text-gray-400 text-sm p-3">No sample available yet.</div>';
+                modal.classList.remove('hidden');
+                document.addEventListener('keydown', onKey);
+            }
+
+            function closeModal(){
+                modal.classList.add('hidden');
+                document.removeEventListener('keydown', onKey);
+            }
+
+            function onKey(e){
+                if (e.key === 'Escape') closeModal();
+            }
+
+            function onBackdrop(e){
+                if (e.target === modal) closeModal();
+            }
+
+            function copyCode(){
+                const lang = skillLang.textContent;
+                const key = norm(lang);
+                let toCopy = codeSamples[key] || '';
+                navigator.clipboard.writeText(toCopy).then(() => {
+                    const span = skillCopyBtn.querySelector('span');
+                    if (span) {
+                        const prev = span.textContent;
+                        span.textContent = 'Copied';
+                        setTimeout(() => { span.textContent = prev; }, 1200);
+                    }
+                }).catch(() => {
+                    const span = skillCopyBtn.querySelector('span');
+                    if (span) {
+                        const prev = span.textContent;
+                        span.textContent = 'Failed';
+                        setTimeout(() => { span.textContent = prev; }, 1200);
+                    }
+                });
+            }
+
+            skillBadges.forEach(badge => {
+                badge.addEventListener('click', () => openModal(badge.dataset.lang));
+            });
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (skillCopyBtn) skillCopyBtn.addEventListener('click', copyCode);
+            modal.addEventListener('click', onBackdrop);
+        })();
+
+        // Certificate modal: open View button handlers
+        (function(){
+            const modal = document.getElementById('cert-modal');
+            const closeBtn = document.getElementById('cert-modal-close');
+            const modalTitle = document.getElementById('cert-modal-title-text');
+            const modalFrame = document.getElementById('cert-modal-frame');
+            const modalOpen = document.getElementById('cert-modal-open');
+            const modalDownload = document.getElementById('cert-modal-download');
+            const viewBtns = Array.from(document.querySelectorAll('.cert-view-btn'));
+
+            if (!modal || !viewBtns.length) return;
+
+            function openModal(certUrl, certTitle){
+                modalTitle.textContent = certTitle;
+                modalFrame.src = certUrl;
+                modalOpen.href = certUrl;
+                modalDownload.href = certUrl;
+                modal.classList.remove('hidden');
+                document.addEventListener('keydown', onKey);
+            }
+
+            function closeModal(){
+                modal.classList.add('hidden');
+                document.removeEventListener('keydown', onKey);
+            }
+
+            function onKey(e){
+                if (e.key === 'Escape') closeModal();
+            }
+
+            function onBackdrop(e){
+                if (e.target === modal) closeModal();
+            }
+
+            viewBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const certUrl = btn.dataset.certUrl;
+                    const certTitle = btn.dataset.certTitle;
+                    openModal(certUrl, certTitle);
+                });
+            });
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', onBackdrop);
+        })();
+
+        // Certifications: filter + sort
+        (function(){
+            function sortGrid(grid){
+                if (!grid) return;
+                const articles = Array.from(grid.querySelectorAll('article'));
+                articles.sort((a, b) => parseInt(a.id.split('-')[1]) - parseInt(b.id.split('-')[1]));
+                articles.forEach(a => grid.appendChild(a));
+            }
+            const filterButtons = Array.from(document.querySelectorAll('#cert-filters .filter-btn'));
+            if (!filterButtons.length) return;
+
+            function applyFilter(filter){
+                const allVendors = ['aws', 'comptia'];
+                const allSections = allVendors.map(v => document.getElementById(`vendor-section-${v}`)).filter(Boolean);
+                const iframeSection = document.getElementById('cert-modal-frame');
+
+                allSections.forEach(section => {
+                    const isVisible = filter === 'all' || section.id.includes(filter);
+                    section.classList.toggle('hidden', !isVisible);
+                });
+
+                filterButtons.forEach(btn => {
+                    btn.classList.toggle('bg-indigo-600', btn.dataset.filter === filter);
+                    btn.classList.toggle('border-indigo-600', btn.dataset.filter === filter);
+                    btn.classList.toggle('text-white', btn.dataset.filter === filter);
+                    btn.classList.toggle('border-indigo-600/40', btn.dataset.filter !== filter);
+                    btn.classList.toggle('bg-indigo-500/10', btn.dataset.filter !== filter);
+                    btn.classList.toggle('text-indigo-300', btn.dataset.filter !== filter);
+                });
+            }
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+            });
+            applyFilter('aws');
+        })();
+
+    </script>
+</body>
+</html>
