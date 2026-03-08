@@ -1,0 +1,48 @@
+body {
+    background: #121212;
+    color: white;
+    font-family: sans-serif;
+    margin: 0;
+    overflow: hidden;
+}
+
+.ticker-wrapper {
+    width: 100%;
+    background: #1e1e1e;
+    border-bottom: 1px solid #333;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+}
+
+.ticker-content {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-ticker 60s linear infinite;
+}
+
+.crypto-item {
+    display: inline-block;
+    margin: 0 30px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.price {
+    color: #4caf50; /* Green */
+    margin-left: 5px;
+}
+
+.change-down {
+    color: #f44336; /* Red */
+}
+
+@keyframes scroll-ticker {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+/* Pause on hover so people can read a specific price */
+.ticker-wrapper:hover .ticker-content {
+    animation-play-state: paused;
+}
