@@ -1,34 +1,50 @@
 async function fetchCryptoData() {
-    try {
-        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
-        const data = await response.json();
-        
-        const tickerContainer = document.getElementById('ticker-content');
-        tickerContainer.innerHTML = ''; // Clear loading text
+    // Coinpaprika is more lenient with CORS and doesn't require a key
+    const url = 'https://api.coinpaprika.com/v1/tickers?quotes=USD';
 
-        data.forEach(coin => {
+    try {
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            throw new Error(`Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const tickerContainer = document.getElementById('ticker-content');
+        
+        // Clear loading text
+        tickerContainer.innerHTML = ''; 
+
+        // Get the top 100
+        const top100 = data.slice(0, 100);
+
+        top100.forEach(coin => {
             const coinElement = document.createElement('span');
             coinElement.className = 'crypto-item';
             
-            const priceChange = coin.price_change_percentage_24h;
+            const price = coin.quotes.USD.price;
+            const priceChange = coin.quotes.USD.percent_change_24h;
             const changeClass = priceChange < 0 ? 'change-down' : '';
 
+            // Formatting price: Use 2 decimals for big coins, more for small ones
+            const formattedPrice = price > 1 ? price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : price.toFixed(6);
+
             coinElement.innerHTML = `
-                ${coin.symbol.toUpperCase()}: 
-                <span class="price">$${coin.current_price.toLocaleString()}</span>
+                ${coin.symbol}: 
+                <span class="price">$${formattedPrice}</span>
                 <span class="${changeClass}">(${priceChange.toFixed(2)}%)</span>
             `;
             
             tickerContainer.appendChild(coinElement);
         });
     } catch (error) {
-        console.error('Error fetching data:', error);
-        document.getElementById('ticker-content').innerText = "Failed to load data.";
+        console.error('Ticker Error:', error);
+        document.getElementById('ticker-content').innerText = "Data currently unavailable.";
     }
 }
 
 // Initial fetch
 fetchCryptoData();
 
-// Refresh data every 2 minutes to respect API rate limits
-setInterval(fetchCryptoData, 120000);
+// Update every 5 minutes to stay safe
+setInterval(fetchCryptoData, 300000);
