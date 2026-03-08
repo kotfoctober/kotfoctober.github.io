@@ -1,6 +1,6 @@
 body {
-    background: #121212;
-    color: white;
+    background: #ffffff;
+    color: black;
     font-family: sans-serif;
     margin: 0;
     overflow: hidden;
@@ -18,7 +18,7 @@ body {
 .ticker-content {
     display: inline-block;
     padding-left: 100%;
-    animation: scroll-ticker 60s linear infinite;
+    animation: scroll-ticker 180s linear infinite;
 }
 
 .crypto-item {
