@@ -28,13 +28,14 @@ body {
     font-weight: bold;
 }
 
-.price {
-    color: #4caf50; /* Green */
+.price { 
+    color: #00ff88; 
+    font-family: 'Courier New', monospace; 
     margin-left: 5px;
 }
 
 .change-down {
-    color: #f44336; /* Red */
+    color: #ff4d4d; /* Red */
 }
 
 @keyframes scroll-ticker {
@@ -46,3 +47,5 @@ body {
 .ticker-wrapper:hover .ticker-content {
     animation-play-state: paused;
 }
+
+
