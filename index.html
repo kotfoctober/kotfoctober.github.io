@@ -375,6 +375,7 @@
                         <button type="button" data-filter="all" class="filter-btn badge inline-flex items-center gap-1 rounded-full border border-indigo-600/40 bg-indigo-500/10 px-2.5 py-1 text-xs text-indigo-300" role="tab">All</button>
                         <button type="button" data-filter="aws" class="filter-btn badge inline-flex items-center gap-1 rounded-full border border-indigo-600 bg-indigo-600 px-2.5 py-1 text-xs text-white" role="tab" aria-selected="true">AWS</button>
                         <button type="button" data-filter="comptia" class="filter-btn badge inline-flex items-center gap-1 rounded-full border border-indigo-600/40 bg-indigo-500/10 px-2.5 py-1 text-xs text-indigo-300" role="tab">CompTIA</button>
+                        <button type="button" data-filter="google" class="filter-btn badge inline-flex items-center gap-1 rounded-full border border-blue-600/40 bg-blue-500/10 px-2.5 py-1 text-xs text-blue-300" role="tab">Google</button>
                     </div>
                 </div>
 
@@ -572,6 +573,65 @@
                     <button type="button" data-action="all" aria-controls="vendor-comptia" class="px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Load all</button>
                     <button type="button" data-action="less" aria-controls="vendor-comptia" class="ml-auto px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Show less</button>
                 </div>
+                </div>
+
+                <!-- Google -->
+                <div id="vendor-section-google" class="hidden">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-base font-semibold text-white inline-flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+                            <span class="text-[#4285F4]">Google</span>
+                            <span class="sr-only">Certification track:</span>
+                            Cloud Digital Leader
+                        </h3>
+                        <span class="hidden sm:inline text-xs px-2 py-0.5 rounded bg-[#4285F4] text-white font-medium">Google</span>
+                    </div>
+                    <div id="vendor-google" data-vendor="google" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch mb-2">
+                        <!-- Google 1 -->
+                        <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="google-1-title">
+                            <h4 id="google-1-title" class="text-[15px] font-medium text-white">Generative AI on GCP — Deep Dive</h4>
+                            <div class="mt-auto pt-3">
+                                <p class="text-sm text-gray-400"><small>Google Cloud</small></p>
+                                <div class="mt-2 flex items-center gap-4 text-sm">
+                                    <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#4285F4] hover:text-[#6ea8ff]" data-cert-url="https://kotfoctober.github.io/certificate/Google/GenerativeAI-on-GCP-Deep-Dive.pdf" data-cert-title="Generative AI on GCP — Deep Dive" aria-label="View certificate PDF: Generative AI on GCP — Deep Dive">
+                                        <span>View</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Google 2 -->
+                        <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="google-2-title">
+                            <h4 id="google-2-title" class="text-[15px] font-medium text-white">Generative AI on GCP — Empowering ML</h4>
+                            <div class="mt-auto pt-3">
+                                <p class="text-sm text-gray-400"><small>Google Cloud</small></p>
+                                <div class="mt-2 flex items-center gap-4 text-sm">
+                                    <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#4285F4] hover:text-[#6ea8ff]" data-cert-url="https://kotfoctober.github.io/certificate/Google/GenerativeAI-on-GCP-Empowering-ML.pdf" data-cert-title="Generative AI on GCP — Empowering ML" aria-label="View certificate PDF: Generative AI on GCP — Empowering ML">
+                                        <span>View</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Google 3 -->
+                        <article class="card rounded-lg bg-[#121212] p-5 border border-[#222222] h-full flex flex-col" aria-labelledby="google-3-title">
+                            <h4 id="google-3-title" class="text-[15px] font-medium text-white">Generative AI on GCP — Vertex AI</h4>
+                            <div class="mt-auto pt-3">
+                                <p class="text-sm text-gray-400"><small>Google Cloud</small></p>
+                                <div class="mt-2 flex items-center gap-4 text-sm">
+                                    <button type="button" class="cert-view-btn inline-flex items-center gap-2 text-[#4285F4] hover:text-[#6ea8ff]" data-cert-url="https://kotfoctober.github.io/certificate/Google/GenerativeAI-on-GCP-VertexAI.pdf" data-cert-title="Generative AI on GCP — Vertex AI" aria-label="View certificate PDF: Generative AI on GCP — Vertex AI">
+                                        <span>View</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- Mobile controls: Google certs -->
+                    <div id="vendor-google-controls" class="sm:hidden mt-3 flex items-center gap-2">
+                        <button type="button" data-action="more" aria-controls="vendor-google" class="px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Load more</button>
+                        <button type="button" data-action="all" aria-controls="vendor-google" class="px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Load all</button>
+                        <button type="button" data-action="less" aria-controls="vendor-google" class="ml-auto px-3 py-1.5 border border-gray-700 text-gray-200 rounded-md hover:bg-gray-800 text-sm">Show less</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1063,7 +1123,7 @@ let disemvowel (s: string) =
             if (!filterButtons.length) return;
 
             function applyFilter(filter){
-                const allVendors = ['aws', 'comptia'];
+                const allVendors = ['aws', 'comptia', 'google'];
                 const allSections = allVendors.map(v => document.getElementById(`vendor-section-${v}`)).filter(Boolean);
                 const iframeSection = document.getElementById('cert-modal-frame');
 
