@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>50:00 - Pomodoro</title>
+    <style>
+        body {
+            background-color: transparent;
+            color: whiteSmoke;
+            font-family: "Courier New", Courier, monospace;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-transform: uppercase;
+        }
+
+        .timer-container {
+            margin-top: 8vh;
+            text-align: center;
+        }
+
+        #timer-display {
+            font-size: clamp(5rem, 15vw, 10rem);
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        #session-label, #mode-label {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            margin-top: 5px;
+        }
+
+        .controls {
+            margin-top: 35vh; 
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            background: transparent;
+            color: #000;
+            border: 2px solid #000;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .clear-data {
+            margin-top: 20px;
+            font-size: 0.7rem;
+            opacity: 0.3;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="timer-container">
+        <div id="timer-display">50:00</div>
+        <div id="session-label">Session 1</div>
+        <div id="mode-label">Work/Study</div>
+    </div>
+
+    <div class="controls">
+        <button id="start-pause">Start</button>
+        <button id="reset">Reset</button>
+    </div>
+
+    <div class="clear-data" onclick="clearStorage()">Clear Saved Progress</div>
+
+    <script>
+        const WORK_TIME = 50 * 60;
+        const BREAK_TIME = 10 * 60;
+
+        let timeLeft = parseInt(localStorage.getItem('timeLeft')) || WORK_TIME;
+        let isWorking = localStorage.getItem('isWorking') !== 'false';
+        let sessionCount = parseInt(localStorage.getItem('sessionCount')) || 1;
+        let timerId = null;
+        let isRunning = false;
+
+        const display = document.getElementById('timer-display');
+        const sessionLabel = document.getElementById('session-label');
+        const modeLabel = document.getElementById('mode-label');
+        const startPauseBtn = document.getElementById('start-pause');
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            display.textContent = timeStr;
+            document.title = `${timeStr} - ${isWorking ? 'Work' : 'Break'}`;
+            
+            sessionLabel.textContent = `Session ${sessionCount}`;
+            modeLabel.textContent = isWorking ? "Work/Study" : "Break";
+
+            // Save state
+            localStorage.setItem('timeLeft', timeLeft);
+            localStorage.setItem('isWorking', isWorking);
+            localStorage.setItem('sessionCount', sessionCount);
+        }
+
+        function toggleTimer() {
+            if (isRunning) {
+                clearInterval(timerId);
+                startPauseBtn.textContent = "Play";
+            } else {
+                startPauseBtn.textContent = "Pause";
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    if (timeLeft < 0) handleTransition();
+                    updateDisplay();
+                }, 1000);
+            }
+            isRunning = !isRunning;
+        }
+
+        function handleTransition() {
+            if (isWorking) {
+                isWorking = false;
+                timeLeft = BREAK_TIME;
+            } else {
+                isWorking = true;
+                timeLeft = WORK_TIME;
+                sessionCount++;
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerId);
+            isRunning = false;
+            isWorking = true;
+            sessionCount = 1;
+            timeLeft = WORK_TIME;
+            startPauseBtn.textContent = "Start";
+            localStorage.clear();
+            updateDisplay();
+        }
+
+        function clearStorage() {
+            if(confirm("Reset all session data?")) resetTimer();
+        }
+
+        startPauseBtn.addEventListener('click', toggleTimer);
+        document.getElementById('reset').addEventListener('click', resetTimer);
+
+        // Run on load
+        updateDisplay();
+    </script>
+</body>
+</html>
